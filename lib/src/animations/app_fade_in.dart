@@ -44,9 +44,18 @@ class _AppFadeInState extends State<AppFadeIn>
     curve: AppMotion.enter,
   );
 
+  bool _reduceMotion = false;
+
   @override
   void initState() {
     super.initState();
+    _reduceMotion = MediaQuery.of(context).disableAnimations;
+    if (_reduceMotion) {
+      // Respect the OS "reduce motion" setting: skip straight to the end
+      // state instead of animating into it.
+      _controller.value = 1;
+      return;
+    }
     if (widget.delay == Duration.zero) {
       _controller.forward();
     } else {
@@ -64,6 +73,8 @@ class _AppFadeInState extends State<AppFadeIn>
 
   @override
   Widget build(BuildContext context) {
+    if (_reduceMotion) return widget.child;
+
     return AnimatedBuilder(
       animation: _fade,
       child: widget.child,

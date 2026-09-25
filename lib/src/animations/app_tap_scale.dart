@@ -36,16 +36,20 @@ class _AppTapScaleState extends State<AppTapScale>
 
   bool get _enabled => widget.enabled && widget.onTap != null;
 
+  /// Tapping still works under reduced motion — only the visual
+  /// press-scale feedback is skipped, per `MediaQuery.disableAnimations`.
+  bool get _reduceMotion => MediaQuery.of(context).disableAnimations;
+
   void _onPointerDown(PointerDownEvent _) {
-    if (_enabled) _controller.forward();
+    if (_enabled && !_reduceMotion) _controller.forward();
   }
 
   void _onPointerUp(PointerUpEvent _) {
-    if (_enabled) _controller.reverse();
+    if (_enabled && !_reduceMotion) _controller.reverse();
   }
 
   void _onPointerCancel(PointerCancelEvent _) {
-    if (_enabled) _controller.reverse();
+    if (_enabled && !_reduceMotion) _controller.reverse();
   }
 
   @override

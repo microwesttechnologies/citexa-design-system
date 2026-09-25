@@ -27,11 +27,24 @@ class _AppScaleInState extends State<AppScaleIn>
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: widget.duration,
-  )..forward();
+  );
   late final Animation<double> _curve = CurvedAnimation(
     parent: _controller,
     curve: AppMotion.emphasized,
   );
+
+  bool _reduceMotion = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _reduceMotion = MediaQuery.of(context).disableAnimations;
+    if (_reduceMotion) {
+      _controller.value = 1;
+    } else {
+      _controller.forward();
+    }
+  }
 
   @override
   void dispose() {
@@ -41,6 +54,8 @@ class _AppScaleInState extends State<AppScaleIn>
 
   @override
   Widget build(BuildContext context) {
+    if (_reduceMotion) return widget.child;
+
     return AnimatedBuilder(
       animation: _curve,
       child: widget.child,
