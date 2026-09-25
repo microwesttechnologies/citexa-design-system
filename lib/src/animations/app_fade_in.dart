@@ -1,0 +1,75 @@
+import 'package:flutter/widgets.dart';
+
+import '../theme/app_motion.dart';
+
+/// Fades (and optionally slides up) its [child] in when first built.
+///
+/// Used to give entering content — cards, list items, sections — a
+/// consistent, subtle appearance animation across every Citexa app.
+class AppFadeIn extends StatefulWidget {
+  const AppFadeIn({
+    super.key,
+    required this.child,
+    this.delay = Duration.zero,
+    this.duration = AppMotion.medium,
+    this.offsetY = 12,
+  });
+
+  final Widget child;
+  final Duration delay;
+  final Duration duration;
+
+  /// Vertical distance (px) the child travels while fading in. Set to 0
+  /// for a pure fade with no movement.
+  final double offsetY;
+
+  @override
+  State<AppFadeIn> createState() => _AppFadeInState();
+}
+
+class _AppFadeInState extends State<AppFadeIn>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+  );
+  late final Animation<double> _fade = CurvedAnimation(
+    parent: _controller,
+    curve: AppMotion.enter,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.delay == Duration.zero) {
+      _controller.forward();
+    } else {
+      Future.delayed(widget.delay, () {
+        if (mounted) _controller.forward();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _fade,
+      child: widget.child,
+      builder: (context, child) {
+        return Opacity(
+          opacity: _fade.value,
+          child: Transform.translate(
+            offset: Offset(0, (1 - _fade.value) * widget.offsetY),
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+}
