@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../theme/app_typography.dart';
 import '../../theme/citexa_colors.dart';
 
-/// Circular avatar. Shows [imageProvider] when given, otherwise the first
-/// letter of [initials] over a brand-gradient background.
+/// Circular avatar. Shows [imageProvider] when given, otherwise [initials]
+/// (typically first-name + last-name initials, e.g. "JO") over a
+/// brand-gradient background.
 class AppAvatar extends StatelessWidget {
   const AppAvatar({
     super.key,
@@ -34,10 +35,12 @@ class AppAvatar extends StatelessWidget {
         gradient: LinearGradient(colors: colors.primaryGradient),
       ),
       child: Text(
-        initials.isEmpty ? '' : initials.substring(0, 1).toUpperCase(),
+        initials.length <= 2
+            ? initials.toUpperCase()
+            : initials.substring(0, 2).toUpperCase(),
         style: CitexaTypography.sectionTitle.copyWith(
           color: colors.onPrimary,
-          fontSize: size * 0.4,
+          fontSize: size * 0.35,
         ),
       ),
     );
