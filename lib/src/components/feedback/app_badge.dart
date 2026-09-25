@@ -17,10 +17,16 @@ class AppBadge extends StatelessWidget {
     super.key,
     required this.label,
     this.variant = AppBadgeVariant.neutral,
+    this.width,
   });
 
   final String label;
   final AppBadgeVariant variant;
+
+  /// Forces the pill to this exact width (label centered inside) instead of
+  /// hugging its text — use to line up a column of badges of differing
+  /// label length (e.g. "Activo" vs "Por vencer" in a table).
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +40,8 @@ class AppBadge extends StatelessWidget {
     };
 
     return Container(
+      width: width,
+      alignment: width == null ? null : Alignment.center,
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.xs,
         vertical: AppSpacing.xxs / 2,
@@ -44,6 +52,7 @@ class AppBadge extends StatelessWidget {
       ),
       child: Text(
         label,
+        textAlign: width == null ? null : TextAlign.center,
         style: CitexaTypography.label.copyWith(
           color: fg,
           fontWeight: FontWeight.w600,
