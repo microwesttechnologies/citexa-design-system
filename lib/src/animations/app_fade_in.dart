@@ -13,6 +13,7 @@ class AppFadeIn extends StatefulWidget {
     this.delay = Duration.zero,
     this.duration = AppMotion.medium,
     this.offsetY = 12,
+    this.offsetX = 0,
   });
 
   final Widget child;
@@ -20,8 +21,13 @@ class AppFadeIn extends StatefulWidget {
   final Duration duration;
 
   /// Vertical distance (px) the child travels while fading in. Set to 0
-  /// for a pure fade with no movement.
+  /// for a pure fade with no vertical movement.
   final double offsetY;
+
+  /// Horizontal distance (px) the child travels while fading in — e.g. a
+  /// negative value slides in from the left. Set to 0 (default) for no
+  /// horizontal movement.
+  final double offsetX;
 
   @override
   State<AppFadeIn> createState() => _AppFadeInState();
@@ -65,7 +71,10 @@ class _AppFadeInState extends State<AppFadeIn>
         return Opacity(
           opacity: _fade.value,
           child: Transform.translate(
-            offset: Offset(0, (1 - _fade.value) * widget.offsetY),
+            offset: Offset(
+              (1 - _fade.value) * widget.offsetX,
+              (1 - _fade.value) * widget.offsetY,
+            ),
             child: child,
           ),
         );

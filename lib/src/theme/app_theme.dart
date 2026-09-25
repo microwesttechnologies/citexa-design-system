@@ -12,13 +12,21 @@ abstract final class CitexaTheme {
   static ThemeData dark() => _build(CitexaColors.dark, Brightness.dark);
 
   static ThemeData _build(CitexaColors colors, Brightness brightness) {
+    // Stock Material widgets (PopupMenuButton, Dialog, etc.) read
+    // ColorScheme.surface expecting an OPAQUE base color for elevation
+    // overlays. CitexaColors.surface is intentionally translucent (a tint
+    // painted over whatever background sits behind it — see AppCard), so it
+    // must never be passed here directly or default menus/dialogs render
+    // almost invisible. Flatten it to a solid color first.
+    final opaqueSurface = Color.alphaBlend(colors.surface, colors.background);
+
     final colorScheme = ColorScheme(
       brightness: brightness,
       primary: colors.primary,
       onPrimary: colors.onPrimary,
       secondary: colors.secondary,
       onSecondary: colors.onSecondary,
-      surface: colors.surface,
+      surface: opaqueSurface,
       onSurface: colors.onSurface,
       error: colors.outline,
       onError: colors.onSurface,
