@@ -15,6 +15,7 @@ export 'src/theme/app_theme.dart';
 
 // Animations
 export 'src/animations/app_fade_in.dart';
+export 'src/animations/app_page_route.dart';
 export 'src/animations/app_scale_in.dart';
 export 'src/animations/app_tap_scale.dart';
 
@@ -36,6 +37,7 @@ export 'src/components/surfaces/app_avatar.dart';
 // Components — feedback
 export 'src/components/feedback/app_loader.dart';
 export 'src/components/feedback/app_badge.dart';
+export 'src/components/feedback/app_skeleton.dart';
 export 'src/components/feedback/app_snackbar.dart';
 export 'src/components/feedback/app_dialog.dart';
 
