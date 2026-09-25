@@ -13,6 +13,8 @@ void main() {
         BrandPalette.neutral,
         BrandPalette.white,
         BrandPalette.black,
+        BrandPalette.success,
+        BrandPalette.warning,
       };
 
       for (final colors in [CitexaColors.light, CitexaColors.dark]) {
@@ -26,6 +28,10 @@ void main() {
           colors.background,
           colors.onBackground,
           colors.onSurface,
+          colors.success,
+          colors.onSuccess,
+          colors.warning,
+          colors.onWarning,
         ]) {
           expect(
             approved.contains(color),

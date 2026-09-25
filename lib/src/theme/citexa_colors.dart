@@ -34,6 +34,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     required this.textSecondary,
     required this.disabled,
     required this.overlay,
+    required this.success,
+    required this.onSuccess,
+    required this.warning,
+    required this.onWarning,
   });
 
   /// #8E05F7 — brand accent used for primary actions, icons and highlights.
@@ -82,6 +86,18 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
   /// Scrim / overlay used behind dialogs and sheets.
   final Color overlay;
 
+  /// #22C55E — positive/active status (e.g. "Activo", "En línea").
+  final Color success;
+
+  /// Color for content painted on top of [success]-filled surfaces.
+  final Color onSuccess;
+
+  /// #F59E0B — attention/expiring status (e.g. "Por vencer").
+  final Color warning;
+
+  /// Color for content painted on top of [warning]-filled surfaces.
+  final Color onWarning;
+
   /// Brand gradient (Primary → Secondary), identical in both themes.
   List<Color> get primaryGradient => BrandPalette.primaryGradient;
 
@@ -101,6 +117,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     textSecondary: Color(0xA6FFFFFF), // white @ 65%
     disabled: Color(0x40FFFFFF), // white @ 25%
     overlay: Color(0xB30F172A), // neutral @ 70%
+    success: BrandPalette.success,
+    onSuccess: BrandPalette.white,
+    warning: BrandPalette.warning,
+    onWarning: BrandPalette.white,
   );
 
   static const CitexaColors light = CitexaColors(
@@ -119,6 +139,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     textSecondary: Color(0xA60F172A), // neutral @ 65%
     disabled: Color(0x400F172A), // neutral @ 25%
     overlay: Color(0x660F172A), // neutral @ 40%
+    success: BrandPalette.success,
+    onSuccess: BrandPalette.white,
+    warning: BrandPalette.warning,
+    onWarning: BrandPalette.white,
   );
 
   @override
@@ -138,6 +162,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     Color? textSecondary,
     Color? disabled,
     Color? overlay,
+    Color? success,
+    Color? onSuccess,
+    Color? warning,
+    Color? onWarning,
   }) {
     return CitexaColors(
       primary: primary ?? this.primary,
@@ -155,6 +183,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
       textSecondary: textSecondary ?? this.textSecondary,
       disabled: disabled ?? this.disabled,
       overlay: overlay ?? this.overlay,
+      success: success ?? this.success,
+      onSuccess: onSuccess ?? this.onSuccess,
+      warning: warning ?? this.warning,
+      onWarning: onWarning ?? this.onWarning,
     );
   }
 
@@ -177,6 +209,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
       disabled: Color.lerp(disabled, other.disabled, t)!,
       overlay: Color.lerp(overlay, other.overlay, t)!,
+      success: Color.lerp(success, other.success, t)!,
+      onSuccess: Color.lerp(onSuccess, other.onSuccess, t)!,
+      warning: Color.lerp(warning, other.warning, t)!,
+      onWarning: Color.lerp(onWarning, other.onWarning, t)!,
     );
   }
 }

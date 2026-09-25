@@ -6,12 +6,10 @@ import '../../theme/citexa_colors.dart';
 
 /// Color treatment of an [AppBadge].
 ///
-/// The brand manual does not define semantic status colors (success /
-/// warning / error), so badges only offer neutral and brand-accent
-/// treatments. Once the brand team publishes status colors they should be
-/// added to [CitexaColors] and a matching variant added here — never as a
-/// one-off hex in a screen.
-enum AppBadgeVariant { neutral, primary, secondary }
+/// [success] and [warning] are semantic status treatments (e.g. "Activo",
+/// "Por vencer") backed by [CitexaColors.success]/[CitexaColors.warning] —
+/// never a one-off hex in a screen.
+enum AppBadgeVariant { neutral, primary, secondary, success, warning }
 
 /// Small pill used to show a status or tag (e.g. "Activo", "Pendiente").
 class AppBadge extends StatelessWidget {
@@ -31,6 +29,8 @@ class AppBadge extends StatelessWidget {
       AppBadgeVariant.neutral => (colors.outline, colors.textPrimary),
       AppBadgeVariant.primary => (colors.primary, colors.onPrimary),
       AppBadgeVariant.secondary => (colors.secondary, colors.onSecondary),
+      AppBadgeVariant.success => (colors.success, colors.onSuccess),
+      AppBadgeVariant.warning => (colors.warning, colors.onWarning),
     };
 
     return Container(

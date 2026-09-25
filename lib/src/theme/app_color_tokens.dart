@@ -35,6 +35,14 @@ abstract final class BrandPalette {
   /// Structural — pure black. Reserved for maximum-contrast needs.
   static const Color black = Color(0xFF000000);
 
+  /// #22C55E — Success. Positive/active status indicators (e.g. "Activo",
+  /// "En línea", positive deltas). Added for the super-admin dashboard.
+  static const Color success = Color(0xFF22C55E);
+
+  /// #F59E0B — Warning. Attention/expiring status indicators (e.g. "Por
+  /// vencer"). Added for the super-admin dashboard.
+  static const Color warning = Color(0xFFF59E0B);
+
   /// Primary brand gradient: Primary → Secondary.
   static const List<Color> primaryGradient = [primary, secondary];
 }
