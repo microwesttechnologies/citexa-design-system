@@ -38,9 +38,16 @@ class _AppSkeletonBoxState extends State<AppSkeletonBox>
     duration: const Duration(milliseconds: 900),
   );
 
+  bool _started = false;
+
+  // MediaQuery.of() must not be called from initState() — see the same
+  // note in AppFadeIn.didChangeDependencies().
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+
     if (!MediaQuery.of(context).disableAnimations) {
       _controller.repeat(reverse: true);
     }

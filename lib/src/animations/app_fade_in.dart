@@ -45,10 +45,17 @@ class _AppFadeInState extends State<AppFadeIn>
   );
 
   bool _reduceMotion = false;
+  bool _started = false;
 
+  // MediaQuery.of() must not be called from initState() (its element isn't
+  // registered as a dependent yet) — didChangeDependencies() is the correct
+  // lifecycle hook, and it always runs once right after initState().
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+
     _reduceMotion = MediaQuery.of(context).disableAnimations;
     if (_reduceMotion) {
       // Respect the OS "reduce motion" setting: skip straight to the end

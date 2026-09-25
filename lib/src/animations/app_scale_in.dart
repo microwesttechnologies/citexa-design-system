@@ -34,10 +34,16 @@ class _AppScaleInState extends State<AppScaleIn>
   );
 
   bool _reduceMotion = false;
+  bool _started = false;
 
+  // MediaQuery.of() must not be called from initState() — see the same
+  // note in AppFadeIn.didChangeDependencies().
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+
     _reduceMotion = MediaQuery.of(context).disableAnimations;
     if (_reduceMotion) {
       _controller.value = 1;
