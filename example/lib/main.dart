@@ -130,11 +130,6 @@ class _ShowcasePageState extends State<ShowcasePage> {
                     onPressed: () {},
                   ),
                   AppButton(
-                    label: 'Outline',
-                    variant: AppButtonVariant.outline,
-                    onPressed: () {},
-                  ),
-                  AppButton(
                     label: 'Ghost',
                     variant: AppButtonVariant.ghost,
                     onPressed: () {},
@@ -219,7 +214,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
                   const AppLoader(),
                   AppButton(
                     label: 'Mostrar snackbar',
-                    variant: AppButtonVariant.outline,
+                    variant: AppButtonVariant.secondary,
                     onPressed: () => showAppSnackBar(
                       context,
                       message: 'Guardado correctamente',
@@ -227,7 +222,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
                   ),
                   AppButton(
                     label: 'Mostrar diálogo',
-                    variant: AppButtonVariant.outline,
+                    variant: AppButtonVariant.secondary,
                     onPressed: () => showAppDialog(
                       context,
                       title: '¿Eliminar elemento?',

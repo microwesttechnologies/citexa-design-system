@@ -20,9 +20,6 @@ enum AppButtonVariant {
   /// other clearly destructive actions.
   danger,
 
-  /// Transparent fill, primary-colored border and label.
-  outline,
-
   /// No fill, no border — just a colored label. Use for low-emphasis
   /// actions.
   ghost,
@@ -120,14 +117,6 @@ class AppButton extends StatelessWidget {
           borderRadius: radius,
           color: _enabled ? colors.error : colors.disabled,
         );
-      case AppButtonVariant.outline:
-        return BoxDecoration(
-          borderRadius: radius,
-          border: Border.all(
-            color: _enabled ? colors.primary : colors.disabled,
-            width: 1.5,
-          ),
-        );
       case AppButtonVariant.ghost:
         return BoxDecoration(borderRadius: radius);
     }
@@ -142,7 +131,6 @@ class AppButton extends StatelessWidget {
         return colors.onSecondary;
       case AppButtonVariant.danger:
         return colors.onError;
-      case AppButtonVariant.outline:
       case AppButtonVariant.ghost:
         return colors.primary;
     }
