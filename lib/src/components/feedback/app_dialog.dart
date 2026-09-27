@@ -59,16 +59,17 @@ Future<T?> showAppDialog<T>(
                     if (cancelLabel != null) ...[
                       AppButton(
                         label: cancelLabel,
-                        variant: AppButtonVariant.ghost,
+                        variant: AppButtonVariant.danger,
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       const SizedBox(width: AppSpacing.xs),
                     ],
                     AppButton(
                       label: confirmLabel,
-                      variant: isDestructive
-                          ? AppButtonVariant.outline
-                          : AppButtonVariant.primary,
+                      // Both actions are solid so a confirmation dialog
+                      // has the same visual weight as primary dashboard
+                      // actions. Cancel keeps the destructive red role.
+                      variant: AppButtonVariant.primary,
                       onPressed: () => Navigator.of(context).pop(true),
                     ),
                   ],

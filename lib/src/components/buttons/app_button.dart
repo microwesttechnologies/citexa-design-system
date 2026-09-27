@@ -16,6 +16,10 @@ enum AppButtonVariant {
   /// Filled with the solid secondary accent color.
   secondary,
 
+  /// Filled with the semantic error color. Reserved for cancellation and
+  /// other clearly destructive actions.
+  danger,
+
   /// Transparent fill, primary-colored border and label.
   outline,
 
@@ -111,6 +115,11 @@ class AppButton extends StatelessWidget {
           borderRadius: radius,
           color: _enabled ? colors.secondary : colors.disabled,
         );
+      case AppButtonVariant.danger:
+        return BoxDecoration(
+          borderRadius: radius,
+          color: _enabled ? colors.error : colors.disabled,
+        );
       case AppButtonVariant.outline:
         return BoxDecoration(
           borderRadius: radius,
@@ -131,6 +140,8 @@ class AppButton extends StatelessWidget {
         return colors.onPrimary;
       case AppButtonVariant.secondary:
         return colors.onSecondary;
+      case AppButtonVariant.danger:
+        return colors.onError;
       case AppButtonVariant.outline:
       case AppButtonVariant.ghost:
         return colors.primary;
