@@ -38,6 +38,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     required this.onSuccess,
     required this.warning,
     required this.onWarning,
+    required this.error,
+    required this.onError,
+    required this.info,
+    required this.onInfo,
   });
 
   /// #8E05F7 — brand accent used for primary actions, icons and highlights.
@@ -98,6 +102,18 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
   /// Color for content painted on top of [warning]-filled surfaces.
   final Color onWarning;
 
+  /// #EF4444 — failures and destructive feedback.
+  final Color error;
+
+  /// Color for content painted on top of [error]-filled surfaces.
+  final Color onError;
+
+  /// #3B82F6 — neutral informational feedback.
+  final Color info;
+
+  /// Color for content painted on top of [info]-filled surfaces.
+  final Color onInfo;
+
   /// Brand gradient (Primary → Secondary), identical in both themes.
   List<Color> get primaryGradient => BrandPalette.primaryGradient;
 
@@ -121,6 +137,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     onSuccess: BrandPalette.white,
     warning: BrandPalette.warning,
     onWarning: BrandPalette.white,
+    error: BrandPalette.error,
+    onError: BrandPalette.white,
+    info: BrandPalette.info,
+    onInfo: BrandPalette.white,
   );
 
   static const CitexaColors light = CitexaColors(
@@ -143,6 +163,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     onSuccess: BrandPalette.white,
     warning: BrandPalette.warning,
     onWarning: BrandPalette.white,
+    error: BrandPalette.error,
+    onError: BrandPalette.white,
+    info: BrandPalette.info,
+    onInfo: BrandPalette.white,
   );
 
   @override
@@ -166,6 +190,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
     Color? onSuccess,
     Color? warning,
     Color? onWarning,
+    Color? error,
+    Color? onError,
+    Color? info,
+    Color? onInfo,
   }) {
     return CitexaColors(
       primary: primary ?? this.primary,
@@ -187,6 +215,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
       onSuccess: onSuccess ?? this.onSuccess,
       warning: warning ?? this.warning,
       onWarning: onWarning ?? this.onWarning,
+      error: error ?? this.error,
+      onError: onError ?? this.onError,
+      info: info ?? this.info,
+      onInfo: onInfo ?? this.onInfo,
     );
   }
 
@@ -213,6 +245,10 @@ class CitexaColors extends ThemeExtension<CitexaColors> {
       onSuccess: Color.lerp(onSuccess, other.onSuccess, t)!,
       warning: Color.lerp(warning, other.warning, t)!,
       onWarning: Color.lerp(onWarning, other.onWarning, t)!,
+      error: Color.lerp(error, other.error, t)!,
+      onError: Color.lerp(onError, other.onError, t)!,
+      info: Color.lerp(info, other.info, t)!,
+      onInfo: Color.lerp(onInfo, other.onInfo, t)!,
     );
   }
 }

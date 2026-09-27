@@ -15,6 +15,8 @@ void main() {
         BrandPalette.black,
         BrandPalette.success,
         BrandPalette.warning,
+        BrandPalette.error,
+        BrandPalette.info,
       };
 
       for (final colors in [CitexaColors.light, CitexaColors.dark]) {
@@ -32,6 +34,10 @@ void main() {
           colors.onSuccess,
           colors.warning,
           colors.onWarning,
+          colors.error,
+          colors.onError,
+          colors.info,
+          colors.onInfo,
         ]) {
           expect(
             approved.contains(color),

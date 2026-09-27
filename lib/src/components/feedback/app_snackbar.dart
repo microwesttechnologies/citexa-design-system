@@ -7,6 +7,9 @@ import '../../theme/citexa_colors.dart';
 
 OverlayEntry? _activeToastEntry;
 
+/// Semantic treatment for transient feedback.
+enum AppSnackBarType { error, success, info, warning }
+
 /// Shows a themed toast anchored to the bottom-right corner, built from
 /// [CitexaColors].
 ///
@@ -17,7 +20,7 @@ OverlayEntry? _activeToastEntry;
 void showAppSnackBar(
   BuildContext context, {
   required String message,
-  bool emphasize = false,
+  AppSnackBarType type = AppSnackBarType.info,
 }) {
   final colors = context.colors;
   final overlay = Overlay.of(context);
@@ -29,7 +32,7 @@ void showAppSnackBar(
   entry = OverlayEntry(
     builder: (context) => _AppToast(
       message: message,
-      emphasize: emphasize,
+      type: type,
       colors: colors,
       onDismissed: () {
         entry.remove();
@@ -46,13 +49,13 @@ void showAppSnackBar(
 class _AppToast extends StatefulWidget {
   const _AppToast({
     required this.message,
-    required this.emphasize,
+    required this.type,
     required this.colors,
     required this.onDismissed,
   });
 
   final String message;
-  final bool emphasize;
+  final AppSnackBarType type;
   final CitexaColors colors;
   final VoidCallback onDismissed;
 
@@ -93,10 +96,24 @@ class _AppToastState extends State<_AppToast>
   @override
   Widget build(BuildContext context) {
     final colors = widget.colors;
-    final background = widget.emphasize
-        ? colors.primary
-        : Color.alphaBlend(colors.surface, colors.background);
-    final foreground = widget.emphasize ? colors.onPrimary : colors.textPrimary;
+    final (background, foreground, icon) = switch (widget.type) {
+      AppSnackBarType.error => (
+        colors.error,
+        colors.onError,
+        Icons.error_outline,
+      ),
+      AppSnackBarType.success => (
+        colors.success,
+        colors.onSuccess,
+        Icons.check_circle_outline,
+      ),
+      AppSnackBarType.info => (colors.info, colors.onInfo, Icons.info_outline),
+      AppSnackBarType.warning => (
+        colors.warning,
+        colors.onWarning,
+        Icons.warning_amber_rounded,
+      ),
+    };
 
     return Positioned(
       right: AppSpacing.lg,
@@ -138,11 +155,20 @@ class _AppToastState extends State<_AppToast>
                       ),
                     ],
                   ),
-                  child: Text(
-                    widget.message,
-                    style: CitexaTypography.bodySecondary.copyWith(
-                      color: foreground,
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(icon, color: foreground, size: 20),
+                      const SizedBox(width: AppSpacing.xs),
+                      Flexible(
+                        child: Text(
+                          widget.message,
+                          style: CitexaTypography.bodySecondary.copyWith(
+                            color: foreground,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

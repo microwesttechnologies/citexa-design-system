@@ -43,6 +43,12 @@ abstract final class BrandPalette {
   /// vencer"). Added for the super-admin dashboard.
   static const Color warning = Color(0xFFF59E0B);
 
+  /// #EF4444 — error. Failed operations and destructive feedback.
+  static const Color error = Color(0xFFEF4444);
+
+  /// #3B82F6 — information. Neutral system notices and guidance.
+  static const Color info = Color(0xFF3B82F6);
+
   /// Primary brand gradient: Primary → Secondary.
   static const List<Color> primaryGradient = [primary, secondary];
 }

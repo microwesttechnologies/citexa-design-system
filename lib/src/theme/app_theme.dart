@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'citexa_colors.dart';
+import 'app_spacing.dart';
 import 'app_typography.dart';
 
 /// Builds the light and dark [ThemeData] for every Citexa app (web and
@@ -28,8 +29,8 @@ abstract final class CitexaTheme {
       onSecondary: colors.onSecondary,
       surface: opaqueSurface,
       onSurface: colors.onSurface,
-      error: colors.outline,
-      onError: colors.onSurface,
+      error: colors.error,
+      onError: colors.onError,
       outline: colors.outline,
     );
 
@@ -40,6 +41,14 @@ abstract final class CitexaTheme {
       scaffoldBackgroundColor: colors.background,
       canvasColor: colors.background,
       dividerColor: colors.outline,
+      dialogTheme: DialogThemeData(
+        backgroundColor: opaqueSurface,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          side: BorderSide(color: colors.outline),
+        ),
+      ),
       fontFamily: bodyFontFamily,
       textTheme: CitexaTypography.textTheme(colors.textPrimary),
       splashFactory: InkSparkle.splashFactory,

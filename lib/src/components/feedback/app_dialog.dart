@@ -28,7 +28,10 @@ Future<T?> showAppDialog<T>(
           child: Container(
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(
-              color: colors.surface,
+              // Surfaces are intentionally translucent inside normal cards.
+              // A dialog sits over a scrim, so flatten it first to prevent
+              // the modal itself from looking transparent.
+              color: Color.alphaBlend(colors.surface, colors.background),
               borderRadius: BorderRadius.circular(AppRadius.lg),
               border: Border.all(color: colors.outline),
             ),
