@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:citexa_design_system/citexa_design_system.dart';
@@ -111,5 +112,43 @@ void main() {
 
     expect(find.text('Citexa'), findsOneWidget);
     expect(find.text('contenido'), findsOneWidget);
+  });
+
+  group('CitexaLogo', () {
+    Future<String> assetShownUnder(WidgetTester tester, ThemeData theme, CitexaLogoVariant v) async {
+      await tester.pumpWidget(
+        MaterialApp(theme: theme, home: Scaffold(body: CitexaLogo(variant: v, height: 40))),
+      );
+      await tester.pumpAndSettle(); // MaterialApp animates theme changes
+      final image = tester.widget<Image>(find.byType(Image));
+      return (image.image as AssetImage).assetName;
+    }
+
+    testWidgets('picks the navy lettering on light and the white lettering on dark', (tester) async {
+      expect(
+        await assetShownUnder(tester, CitexaTheme.light(), CitexaLogoVariant.horizontal),
+        endsWith('citexa_horizontal_on_light.png'),
+      );
+      expect(
+        await assetShownUnder(tester, CitexaTheme.dark(), CitexaLogoVariant.vertical),
+        endsWith('citexa_vertical_on_dark.png'),
+      );
+    });
+
+    testWidgets('the icon-only mark is the same artwork in both themes', (tester) async {
+      final light = await assetShownUnder(tester, CitexaTheme.light(), CitexaLogoVariant.icon);
+      final dark = await assetShownUnder(tester, CitexaTheme.dark(), CitexaLogoVariant.icon);
+      expect(light, dark);
+    });
+
+    testWidgets('every variant is bundled in the package', (tester) async {
+      for (final variant in CitexaLogoVariant.values) {
+        for (final onDark in [true, false]) {
+          final path = 'packages/citexa_design_system/${CitexaLogo.assetPath(variant, onDark: onDark)}';
+          final data = await rootBundle.load(path);
+          expect(data.lengthInBytes, greaterThan(1000), reason: path);
+        }
+      }
+    });
   });
 }

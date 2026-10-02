@@ -19,6 +19,9 @@ export 'src/animations/app_page_route.dart';
 export 'src/animations/app_scale_in.dart';
 export 'src/animations/app_tap_scale.dart';
 
+// Components — branding
+export 'src/components/branding/citexa_logo.dart';
+
 // Components — buttons
 export 'src/components/buttons/app_button.dart';
 
