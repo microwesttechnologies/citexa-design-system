@@ -92,8 +92,35 @@ MaterialApp(
 );
 ```
 
-Already wired into `citexa-frontend-web/citexa_web`. Wire it the same way
-into the mobile app once `citexa-frontend-app` has code.
+Already wired into `citexa-frontend-web/citexa_web` and `citexa-frontend-app`.
+
+### Pinning a version
+
+Apps consume the package as a git dependency. Pin it to a **release tag**, never
+to `main` (a change to the design system must not break the web or the app at
+the next `flutter pub get`):
+
+```yaml
+dependencies:
+  citexa_design_system:
+    git:
+      url: https://github.com/microwesttechnologies/citexa-design-system.git
+      ref: v0.1.0
+```
+
+Release checklist (in this repo): move the `[Unreleased]` entries of
+`CHANGELOG.md` under a new version, bump `version:` in `pubspec.yaml`, merge
+to `main` once CI is green, then tag it (`git tag v0.1.1` and
+`git push origin v0.1.1`). After bumping `ref:` in an app, run `flutter pub get`
+and commit the `pubspec.lock` only if `citexa_design_system` is `source: git`
+(not `source: path`).
+
+### Assets
+
+The logo PNGs in `lib/src/assets/logo/` are bundled and used by `CitexaLogo`
+(asset paths from an app are `packages/citexa_design_system/lib/src/assets/logo/...`).
+The SVG artwork in `lib/src/assets/img/` is source material only and is not
+declared as an asset (nothing uses it; it weighs about 1.6 MB).
 
 ## Showcase
 

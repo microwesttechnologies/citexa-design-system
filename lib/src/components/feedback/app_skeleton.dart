@@ -33,12 +33,21 @@ class AppSkeletonBox extends StatefulWidget {
 
 class _AppSkeletonBoxState extends State<AppSkeletonBox>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 900),
-  );
+  // Created eagerly (not `late final`-lazily): under reduced motion the controller
+  // is never read, so a lazy initializer would first run inside dispose(),
+  // where looking up the TickerMode ancestor is illegal.
+  late final AnimationController _controller;
 
   bool _started = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+  }
 
   // MediaQuery.of() must not be called from initState() — see the same
   // note in AppFadeIn.didChangeDependencies().

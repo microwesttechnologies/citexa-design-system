@@ -1,7 +1,7 @@
 name: citexa_design_system
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: "Citexa design system: shared theme, components and animations for the Citexa Flutter apps (web and mobile)."
+version: 0.1.0
+homepage: https://github.com/microwesttechnologies/citexa-design-system
 
 environment:
   sdk: ^3.11.5
