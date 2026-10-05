@@ -78,7 +78,8 @@ class _AppToastState extends State<_AppToast>
   void initState() {
     super.initState();
     _controller.forward();
-    Future.delayed(const Duration(seconds: 3), _dismiss);
+    // Errors stay longer: they are what the person has to read and act on.
+    Future.delayed(Duration(seconds: widget.type == AppSnackBarType.error ? 6 : 3), _dismiss);
   }
 
   void _dismiss() async {

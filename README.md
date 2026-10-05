@@ -45,12 +45,12 @@ color painted at low opacity over the page background, which is exactly how
 Flutter composites translucent colors — the result reads as a subtly
 lighter (dark theme) or darker (light theme) panel with zero invented hues.
 
-**Not defined by the palette:** semantic status colors (success / warning /
-error). `AppBadge` therefore only ships neutral/primary/secondary variants,
-and `AppTextField`'s error state uses the primary accent + a bolder border
-rather than an invented red. Add a real error/success color to
-`CitexaColors` (and the audit test above) as soon as one is defined — don't
-add a red/green anywhere before that.
+**Status colors:** success / warning / error / info live in `CitexaColors`
+(error is `BrandPalette.error`, a clear red). Every error message — the
+`AppTextField` error state (red border + red text), toasts
+(`showAppSnackBar(type: AppSnackBarType.error)`), inline messages — must use
+`colors.error`, never the brand purple: purple is the focus/accent color, so an
+error in purple reads as "nothing is wrong".
 
 ## What's included
 

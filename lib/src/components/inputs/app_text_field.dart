@@ -7,9 +7,9 @@ import '../../theme/citexa_colors.dart';
 
 /// Standard text input for every Citexa app.
 ///
-/// The brand manual has no dedicated "error" color, so the error state is
-/// expressed with the existing [CitexaColors.primary] accent and a bolder
-/// border rather than an invented red — see [errorText].
+/// The error state is red ([CitexaColors.error]): a red border and a red
+/// message underneath. It must never share the brand purple (the focus color),
+/// or an error looks like a normal focused field — see [errorText].
 class AppTextField extends StatefulWidget {
   const AppTextField({
     super.key,
@@ -78,7 +78,7 @@ class _AppTextFieldState extends State<AppTextField> {
     final Color borderColor = !widget.enabled
         ? colors.disabled
         : _hasError
-        ? colors.primary
+        ? colors.error
         : _focused
         ? colors.primary
         : colors.outline;
@@ -148,7 +148,8 @@ class _AppTextFieldState extends State<AppTextField> {
           Text(
             _hasError ? widget.errorText! : widget.helperText!,
             style: CitexaTypography.label.copyWith(
-              color: _hasError ? colors.primary : colors.textSecondary,
+              color: _hasError ? colors.error : colors.textSecondary,
+              fontWeight: _hasError ? FontWeight.w600 : null,
             ),
           ),
         ],
